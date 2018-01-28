@@ -7,7 +7,7 @@ public class Main {
     private final static String TITLE = "Sokoban";
     // Dimensions
     public final static int FRAME_WIDTH = 640;
-    public final static int FRAME_HEIGHT = 640;
+    public final static int FRAME_HEIGHT = 740;
     // States - will be useful in rendering other HOCs
     public enum STATE{
         GAME
@@ -24,8 +24,12 @@ public class Main {
         // --- JFrame initialize end -----------
 
         World world = new World();
+        Options options = new Options();
+
         // Pack components to JFrame
         gameFrame.add(world);
+        gameFrame.add(options);
+
         gameFrame.pack();
         gameFrame.setVisible(true);
     }

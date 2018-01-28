@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 public class World extends JPanel implements KeyListener{
     private final static int UNINITIALIZED_INT = -1;
-    private static TextureLoader textureLoader;
+    public static TextureLoader textureLoader;
 
     // Details of the map
     private final static String INPUT_FILENAME = "puzzle.in";
@@ -73,6 +73,7 @@ public class World extends JPanel implements KeyListener{
             (this.worldArray[this.initialRow][this.initialCol]).equals("K") ? "s" : "e"); // If it is standing in a storage
                                                                                         // previousPosition will be storage
         this.add(player);
+        this.setBounds(0,0, Main.FRAME_WIDTH, 640);
         this.win = false;
         this.addKeyListener(this);
         this.setFocusable(true);
@@ -348,7 +349,7 @@ public class World extends JPanel implements KeyListener{
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.GRAY);
-        g2d.fillRect(0,0,640,640);
+        g2d.fillRect(0,0,Main.FRAME_WIDTH,Main.FRAME_HEIGHT - 100);
         Texture temp;
         for(int i = 0; i < ROWS; i++){
             for(int j = 0; j < COLS; j++){
