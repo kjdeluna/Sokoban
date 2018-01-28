@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
 public class World extends JPanel implements KeyListener{
-    private final static int UNINITIALIZED_INT = -1;
+    public final static int UNINITIALIZED_INT = -1;
     public static TextureLoader textureLoader;
 
     // Details of the map

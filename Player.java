@@ -15,7 +15,6 @@ public class Player extends Sprite implements Cloneable{
         this.previousPosition = previousPosition;
         this.setOpaque(false);
         this.setSize(640, 640);
-        System.out.println("curr3" + currRow);
     }
 
     public void moveLeft(){
