@@ -27,7 +27,7 @@ public class Options extends JPanel{
         bfsButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 System.out.println(" bfs I'm working");
-                State initialState = new State(world2.getWorldArray(), world2.getPlayer());
+                State initialState = new State(world2.getWorldArray(), world2.getPlayer(), world2.getInitialEndPointCount());
                 Solver bfsSolver = new Solver(initialState);
             }
         });

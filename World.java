@@ -23,14 +23,14 @@ public class World extends JPanel implements KeyListener{
 
     // Values of the 2D Array
     private String[][] worldArray = new String[ROWS][COLS];
-    private final static String BOX = "b";              // BOX
-    private final static String BOX_IN_STORAGE = "B";   // BOX IN STORAGE
-    private final static String WALL = "w";             // wall
-    private final static String OUTSIDE = "x";          // none
-    private final static String EMPTY = "e";            // empty space
-    private final static String ENDPOINT = "s";         // storage
-    private final static String WAREHOUSE_KEEPER = "k"; // warehouse keeper
-    private final static String WAREHOUSE_KEEPER_ON_ENDPOINT = "K"; // warehouse keeper 
+    public final static String BOX = "b";              // BOX
+    public final static String BOX_IN_STORAGE = "B";   // BOX IN STORAGE
+    public final static String WALL = "w";             // wall
+    public final static String OUTSIDE = "x";          // none
+    public final static String EMPTY = "e";            // empty space
+    public final static String ENDPOINT = "s";         // storage
+    public final static String WAREHOUSE_KEEPER = "k"; // warehouse keeper
+    public final static String WAREHOUSE_KEEPER_ON_ENDPOINT = "K"; // warehouse keeper 
                                                                     // in storage
     private boolean win;
 
@@ -41,14 +41,6 @@ public class World extends JPanel implements KeyListener{
     private int initialCol = World.UNINITIALIZED_INT;
 
     private Player player;
-
-    // Direction enums
-    public enum DIRECTION{
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
-    };
 
     private int initialEndPointCount;
 
@@ -106,25 +98,25 @@ public class World extends JPanel implements KeyListener{
                     this.player.setTexture(
                         this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveup.png")
                     );
-                    movementDetected(DIRECTION.UP);
+                    movementDetected(Directions.UP);
                     break;
                 case KeyEvent.VK_DOWN:
                     this.player.setTexture(
                         this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_movedown.png")
                     );
-                    movementDetected(DIRECTION.DOWN);
+                    movementDetected(Directions.DOWN);
                     break;
                 case KeyEvent.VK_LEFT:
                     this.player.setTexture(
                         this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveleft.png")
                     );
-                    movementDetected(DIRECTION.LEFT);
+                    movementDetected(Directions.LEFT);
                     break;
                 case KeyEvent.VK_RIGHT:
                     this.player.setTexture(
                         this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveright.png")
                     );
-                    movementDetected(DIRECTION.RIGHT);
+                    movementDetected(Directions.RIGHT);
                     break;
             }
             this.repaint();
@@ -139,7 +131,7 @@ public class World extends JPanel implements KeyListener{
 
     public void keyReleased(KeyEvent ke){}
 
-    public void movementDetected(DIRECTION direction){
+    public void movementDetected(Directions direction){
         String object = "x";
         // Will check if the next position of the player will be out of range
         boolean outOfBounds = false;
@@ -272,7 +264,7 @@ public class World extends JPanel implements KeyListener{
         if (this.initialEndPointCount == boxInStorageCounter) return true;
         else return false;
     }
-    public void setChangesInArray(DIRECTION direction){
+    public void setChangesInArray(Directions direction){
         int currentRow = this.player.getCurrRow(); 
         int currentColumn = this.player.getCurrCol();
         int nextRow = World.UNINITIALIZED_INT, nextColumn = World.UNINITIALIZED_INT;
@@ -395,5 +387,9 @@ public class World extends JPanel implements KeyListener{
 
     public Player getPlayer(){
         return this.player;
+    }
+
+    public int getInitialEndPointCount(){
+        return this.initialEndPointCount;
     }
 }

@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class Player extends Sprite{
+public class Player extends Sprite implements Cloneable{
     private Texture texture;
     private int currRow;
     private int currCol;
@@ -15,6 +15,7 @@ public class Player extends Sprite{
         this.previousPosition = previousPosition;
         this.setOpaque(false);
         this.setSize(640, 640);
+        System.out.println("curr3" + currRow);
     }
 
     public void moveLeft(){
@@ -51,6 +52,9 @@ public class Player extends Sprite{
     public void setTexture(Texture texture){
         this.texture = texture;
         this.setImage(this.texture.getImage());
+    }
+    public Texture getTexture(){
+        return this.texture;
     }
 }
 
