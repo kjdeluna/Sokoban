@@ -1,6 +1,7 @@
 import javax.swing.JFrame;
 import java.awt.Dimension;
-
+import java.awt.Point;
+import java.awt.Toolkit;
 public class Main {
 
     // Frame attributes
@@ -24,13 +25,14 @@ public class Main {
         // --- JFrame initialize end -----------
 
         World world = new World();
-        Options options = new Options();
-
+        Options options = new Options(world);
         // Pack components to JFrame
         gameFrame.add(world);
         gameFrame.add(options);
-
         gameFrame.pack();
+
+        gameFrame.setLocationRelativeTo(null); // Center gameFrame to the screen
+        
         gameFrame.setVisible(true);
     }
 }

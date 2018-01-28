@@ -15,8 +15,8 @@ public class World extends JPanel implements KeyListener{
 
     // Details of the map
     private final static String INPUT_FILENAME = "puzzle.in";
-    private final static int ROWS = 10;
-    private final static int COLS = 10;
+    public final static int ROWS = 10;
+    public final static int COLS = 10;
 
     // Will be used in loading textures
     private String[] textures;
@@ -51,7 +51,7 @@ public class World extends JPanel implements KeyListener{
     };
 
     private int initialEndPointCount;
-    
+
     public World(){
         this.setBackground(Color.BLACK);
         this.textures = new String[]{ 
@@ -65,7 +65,8 @@ public class World extends JPanel implements KeyListener{
             "player_moveleft.png",
             "player_moveright.png",
             "selector.png",
-            "wall.png"
+            "wall.png",
+            "background.png"
         };
         this.textureLoader = new TextureLoader(Texture.DEFAULT_PATH, this.textures);
         this.readFile();
@@ -335,7 +336,7 @@ public class World extends JPanel implements KeyListener{
         this.initialEndPointCount = initialEndPointCounter;
 	}
 
-    private void printArrayTable(){
+    public void printArrayTable(){
         for(int i = 0; i < World.ROWS; i++){
             System.out.print("\n");
             for(int j = 0; j < World.COLS; j++){
@@ -349,7 +350,7 @@ public class World extends JPanel implements KeyListener{
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.GRAY);
-        g2d.fillRect(0,0,Main.FRAME_WIDTH,Main.FRAME_HEIGHT - 100);
+        g2d.fillRect(0,0,Main.FRAME_WIDTH, 640);
         Texture temp;
         for(int i = 0; i < ROWS; i++){
             for(int j = 0; j < COLS; j++){
@@ -386,5 +387,13 @@ public class World extends JPanel implements KeyListener{
 
             }
         }
+    }
+
+    public String[][] getWorldArray(){
+        return this.worldArray;
+    }
+
+    public Player getPlayer(){
+        return this.player;
     }
 }
