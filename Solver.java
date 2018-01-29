@@ -6,29 +6,52 @@ import java.util.Set;
 public class Solver {
     private Queue<State> frontier;
     private State parentState;
+    private LinkedList<Directions> path;
     public Solver(State initialState){
         // Initial state 
         // When solver is instantiated, it gets the initial state -> parentState
         //                  of the game.
         this.parentState = initialState;
         this.frontier = new ArrayDeque<State>();
-        this.breadthFirstSearch();
+        State hold = this.breadthFirstSearch();
+        System.out.println("DONE");
+        hold.printPaths();
     }
 
     private State breadthFirstSearch(){
         State currentState;
         State nextState;
-        Set<State> explored = new HashSet<State>();
+        int count = 0;
+        Set<String> explored = new HashSet<String>();
         this.frontier.offer(this.parentState);
         while(this.frontier.peek() != null){
             currentState = this.frontier.poll();
+            // String hash2 = "";
+            // for(int i = 0; i < World.ROWS; i++){
+            //     for(int j = 0; j < World.COLS; j++){
+            //         hash2 += currentState.getWorldArray()[i][j];
+            //     }
+            // }
+            // if(!explored.contains(hash2)){
+            //     explored.add(hash2);
+            // }
             if(GoalTest(currentState)) return currentState;
             else{
                 LinkedList<Directions> actionList = Actions(currentState);
                 for(Directions direction : actionList){
+                    count++;
                     nextState = Result(currentState, direction);
+                    String hash = "";
+                    for(int i = 0; i < World.ROWS; i++){
+                        for(int j = 0; j < World.COLS; j++){
+                            hash += nextState.getWorldArray()[i][j];
+                        }
+                    }
                     System.out.println(direction);
-                    this.frontier.offer(nextState);
+                    if(!explored.contains(hash)){
+                        this.frontier.offer(nextState);
+                        explored.add(hash);
+                    }
                     String[][] test = currentState.getWorldArray();
                     for(int i = 0; i < World.ROWS; i++){
                         System.out.print("\n");
@@ -37,10 +60,11 @@ public class Solver {
                         }
                     }
                     System.out.print("\n");
-                    // if(!explored.contains(nextState)){
-                        // explored.add(nextState);
-                        // break;
-                    // }
+                    System.out.println("Num of iterations: " + count);
+                //     if(!explored.contains(nextState)){
+                //         explored.add(nextState);
+                //         break;
+                //     // }
                 }
             }
         }
@@ -167,7 +191,9 @@ public class Solver {
         // What are you going to do if direction is applied to the currentState?
         // All directions provided here are already valid
             // that it won't provide out of bounds error, will not overwrite invalid states
-        State nextState = new State(clonedArray2D, clonedPlayer, currentState.getInitEndPointCount());
+        LinkedList<Directions> initial = Clone.clonePath(currentState.getPath());
+        initial.add(direction);
+        State nextState = new State(clonedArray2D, clonedPlayer, currentState.getInitEndPointCount(), initial);
         return nextState;
     }
     public void setChangesInArray(String[][] clonedArray2D, Player clonedPlayer, Directions direction){

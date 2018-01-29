@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.LinkedList;
 // Options bar is just static and does not need to render anything except the buttons
 public class Options extends JPanel{
     private World world2;
@@ -27,7 +27,8 @@ public class Options extends JPanel{
         bfsButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 System.out.println(" bfs I'm working");
-                State initialState = new State(world2.getWorldArray(), world2.getPlayer(), world2.getInitialEndPointCount());
+                LinkedList<Directions> ab = new LinkedList<Directions>();
+                State initialState = new State(world2.getWorldArray(), world2.getPlayer(), world2.getInitialEndPointCount(), ab);
                 Solver bfsSolver = new Solver(initialState);
             }
         });

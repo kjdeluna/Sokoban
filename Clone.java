@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class Clone{
     public static Player clonePlayer(Player p){
         Texture tex = p.getTexture();
@@ -15,5 +17,10 @@ public class Clone{
             System.arraycopy(src[i], 0, target[i], 0, src[i].length);
         }
         return target;
+    }
+
+    public static LinkedList<Directions> clonePath(LinkedList<Directions> directions){
+        LinkedList<Directions> path = new LinkedList<Directions>(directions);
+        return path;
     }
 }
