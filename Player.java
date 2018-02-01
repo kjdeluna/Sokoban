@@ -2,7 +2,25 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class Player extends Sprite implements Cloneable{
+/* -------------------------------------------------------------------------------------------
+ *
+ *  This class will be used to manage the State for each movement performed 
+ *      Getters:
+ *          getCurrRow() -> returns the current row of the player (int)
+ *          getCurrCol() -> returns the current column of the player (int)
+ *          getPreviousPosition() -> returns the previous value of the tile that the player 
+ *                                       is stepping on
+ *          getTexture() -> returns the texture currently used by player (Texture)
+        Setters:
+            setPreviousPosition() -> change the previous value of the tile the player is on
+            setTexture() -> change the current image of the player
+ *      Other methods:
+ *          moveUp(), moveDown()      -> sets the actions that the player will take
+ *          moveLeft(), moveRight()         -> will decrease xPos, yPos, currRow, currCol
+ *
+ * -------------------------------------------------------------------------------------------*/
+
+public class Player extends Sprite{
     private Texture texture;
     private int currRow;
     private int currCol;
@@ -54,6 +72,13 @@ public class Player extends Sprite implements Cloneable{
     }
     public Texture getTexture(){
         return this.texture;
+    }
+
+    public void setInitialCoordinates(int xPos, int yPos){
+        this.currRow = xPos;
+        this.currCol = yPos;
+        this.xPos = xPos * World.TILE_SIZE;
+        this.yPos = yPos * World.TILE_SIZE;
     }
 }
 

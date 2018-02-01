@@ -1,17 +1,19 @@
 import java.util.LinkedList;
 
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+/* -------------------------------------------------------------------------------------------
+ *
  *  This class will be used to manage the State for each movement performed 
  *      Getters:
- *          getWorldArray()
- *          getInitEndPointCount()
- *          getPath()
- *          getPlayer()
+ *          getWorldArray() -> returns the 2D array (String[][])
+ *          getInitEndPointCount() -> returns the initial number of end points (int)
+ *          getPath() -> returns the current path taken by the player (LinkedList<Directions>)
+ *          getPlayer() -> returns the player of that current state (Player)
  *      Other methods:
- *          printPaths()
- *          addPath()
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ *          printPaths() -> print the path taken by the player (void)
+ *          addPath() -> add a direction to the current path taken by player (void)
+ *
+ * -------------------------------------------------------------------------------------------*/
 
 public class State{
     private String[][] worldArray = new String[World.ROWS][World.COLS];

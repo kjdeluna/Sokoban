@@ -328,6 +328,41 @@ public class World extends JPanel implements KeyListener{
         this.initialEndPointCount = initialEndPointCounter;
 	}
 
+    public void readFile(String filename ){
+        int initialEndPointCounter = 0;
+        try{
+            int i = 0;
+            String[] lineRead;
+            String line;
+            FileReader fr = new FileReader(filename);
+            BufferedReader br = new BufferedReader(fr);
+            while((line = br.readLine()) != null){
+                lineRead = line.split(" ");
+                for(int j = 0; j < COLS; j++){
+                    // if(initialRow == World.UNINITIALIZED_INT && initialCol == World.UNINITIALIZED_INT){
+                        if(lineRead[j].equals(World.WAREHOUSE_KEEPER) || lineRead[j].equals(World.WAREHOUSE_KEEPER_ON_ENDPOINT)){
+                            this.initialRow = i;
+                            this.initialCol = j;
+                            System.out.println(this.initialRow + this.initialCol + "heey");
+                            this.player.setInitialCoordinates(this.initialRow, this.initialCol);
+                        }
+                    // }
+                    this.worldArray[i][j] = lineRead[j];
+                    if(lineRead[j].equals(World.ENDPOINT) 
+                        || lineRead[j].equals(World.WAREHOUSE_KEEPER_ON_ENDPOINT) 
+                        || lineRead[j].equals(World.BOX_IN_STORAGE)){
+                        initialEndPointCounter++;
+                    }
+                }
+                i += 1;
+            }
+            this.repaint();
+        } catch (Exception e){
+            e. printStackTrace();
+        }
+        this.initialEndPointCount = initialEndPointCounter;
+	}
+
     public void printArrayTable(){
         for(int i = 0; i < World.ROWS; i++){
             System.out.print("\n");

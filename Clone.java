@@ -1,11 +1,13 @@
 import java.util.LinkedList;
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+/* ----------------------------------------------------------------------------
+ *
  *  This class will be used to clone the value of a certain class 
  *      - is used to preserve the original values of the parent state
  *
  *  Method name format: clone<class/object>
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ *
+ * --------------------------------------------------------------------------*/
 
 public final class Clone{
 
