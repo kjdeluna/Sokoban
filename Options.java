@@ -76,38 +76,6 @@ public class Options extends JPanel{
                 fileChooser.showOpenDialog(null);
                 String filenameChosen = fileChooser.getSelectedFile().getName();
                 world.readFile(filenameChosen);
-        // try{
-        //     int i = 0;
-        //     String[] lineRead;
-        //     String line;
-        //     FileReader fr = new FileReader(new File(fileChooser.getSelectedFile().getName()));
-        //     BufferedReader br = new BufferedReader(fr);
-        //     while((line = br.readLine()) != null){
-        //         System.out.println(line);
-        //         // lineRead = line.split(" ");
-        //         // for(int j = 0; j < COLS; j++){
-        //         //     if(initialRow == World.UNINITIALIZED_INT && initialCol == World.UNINITIALIZED_INT){
-        //         //         if(lineRead[j].equals(World.WAREHOUSE_KEEPER) || lineRead[j].equals(World.WAREHOUSE_KEEPER_ON_ENDPOINT)){
-        //         //             this.initialRow = i;
-        //         //             this.initialCol = j;
-        //         //         }
-        //         //     }
-        //         //     this.worldArray[i][j] = lineRead[j];
-        //         //     if(lineRead[j].equals(World.ENDPOINT) 
-        //         //         || lineRead[j].equals(World.WAREHOUSE_KEEPER_ON_ENDPOINT) 
-        //         //         || lineRead[j].equals(World.BOX_IN_STORAGE)){
-        //         //         initialEndPointCounter++;
-        //         //     }
-        //         // }
-        //         // i += 1;
-        //     }
-        // // System.out.println("Successfully read " + World.INPUT_FILENAME);
-        // } catch (Exception exc){
-        //     exc. printStackTrace();
-        // }
-            
-                // File file  = fileChooser.getSelectedFile();
-
             }
         });
 

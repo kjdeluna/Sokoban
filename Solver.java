@@ -19,6 +19,7 @@ public class Solver {
 
         System.out.println("That took " + (endTime - startTime) + " milliseconds");
         hold.printPaths();
+        SolutionWindow sw = new SolutionWindow();
     }
 
     private State breadthFirstSearch(){
@@ -56,10 +57,6 @@ public class Solver {
                         }
                         System.out.print("\n");
                         System.out.println("Num of iterations: " + count);
-                    //     if(!explored.contains(nextState)){
-                    //         explored.add(nextState);
-                    //         break;
-                    //     // }
                     }
                 }
             }
