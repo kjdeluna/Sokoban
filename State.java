@@ -1,5 +1,18 @@
 import java.util.LinkedList;
 
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ *  This class will be used to manage the State for each movement performed 
+ *      Getters:
+ *          getWorldArray()
+ *          getInitEndPointCount()
+ *          getPath()
+ *          getPlayer()
+ *      Other methods:
+ *          printPaths()
+ *          addPath()
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 public class State{
     private String[][] worldArray = new String[World.ROWS][World.COLS];
     private Player player;
@@ -12,16 +25,23 @@ public class State{
         this.initEndPointCount = initEndPointCount;
         this.path = path;
     }
+
     public String[][] getWorldArray(){
         return this.worldArray;
     }
+
+    public int getInitEndPointCount(){
+        return this.initEndPointCount;
+    }
+    
+    public LinkedList<Directions> getPath(){
+        return this.path;
+    }
+    
     public Player getPlayer(){
         return this.player;
     }
     
-    public int getInitEndPointCount(){
-        return this.initEndPointCount;
-    }
     public void printPaths(){
         System.out.println("Printing result:");
         for(Directions direction : path){
@@ -33,7 +53,4 @@ public class State{
         this.path.add(direction);
     }
 
-    public LinkedList<Directions> getPath(){
-        return this.path;
-    }
 }

@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
@@ -19,11 +20,16 @@ public class Options extends JPanel{
         this.setPreferredSize(new Dimension(Main.FRAME_WIDTH, 100));
         JButton bfsButton = new JButton("BFS Solve");
         JButton dfsButton = new JButton("DFS Solve");
+        JButton fileButton = new JButton("Open file");
+        JFileChooser fileChooser = new JFileChooser();
         this.setBackground(Color.RED);
         this.add(dfsButton);
         this.add(bfsButton);
+        this.add(fileButton);
         bfsButton.setBounds(50, 675, 150, 40);
         dfsButton.setBounds(230, 675, 150, 40);
+        fileButton.setBounds(410, 675, 150, 40);
+        // fileChooser.setBounds(410, 675, 500, 40);
         bfsButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 System.out.println(" bfs I'm working");
@@ -38,8 +44,14 @@ public class Options extends JPanel{
                 System.out.println(" dfs I'm working");
             }
         });
+
+        fileButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                fileChooser.showOpenDialog(null);            }
+        });
         bfsButton.setFocusable(false);
         dfsButton.setFocusable(false);
+        fileButton.setFocusable(false);
         this.world2 = world;
     }
 

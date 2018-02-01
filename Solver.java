@@ -26,45 +26,38 @@ public class Solver {
         this.frontier.offer(this.parentState);
         while(this.frontier.peek() != null){
             currentState = this.frontier.poll();
-            // String hash2 = "";
-            // for(int i = 0; i < World.ROWS; i++){
-            //     for(int j = 0; j < World.COLS; j++){
-            //         hash2 += currentState.getWorldArray()[i][j];
-            //     }
-            // }
-            // if(!explored.contains(hash2)){
-            //     explored.add(hash2);
-            // }
             if(GoalTest(currentState)) return currentState;
             else{
                 LinkedList<Directions> actionList = Actions(currentState);
                 for(Directions direction : actionList){
                     count++;
                     nextState = Result(currentState, direction);
-                    String hash = "";
-                    for(int i = 0; i < World.ROWS; i++){
-                        for(int j = 0; j < World.COLS; j++){
-                            hash += nextState.getWorldArray()[i][j];
+                    if(nextState != null){
+                        String hash = "";
+                        for(int i = 0; i < World.ROWS; i++){
+                            for(int j = 0; j < World.COLS; j++){
+                                hash += nextState.getWorldArray()[i][j];
+                            }
                         }
-                    }
-                    System.out.println(direction);
-                    if(!explored.contains(hash)){
-                        this.frontier.offer(nextState);
-                        explored.add(hash);
-                    }
-                    String[][] test = currentState.getWorldArray();
-                    for(int i = 0; i < World.ROWS; i++){
+                        System.out.println(direction);
+                        if(!explored.contains(hash)){
+                            this.frontier.offer(nextState);
+                            explored.add(hash);
+                        }
+                        String[][] test = currentState.getWorldArray();
+                        for(int i = 0; i < World.ROWS; i++){
+                            System.out.print("\n");
+                            for(int j = 0; j < World.COLS; j++){
+                                System.out.print(test[i][j] + " ");
+                            }
+                        }
                         System.out.print("\n");
-                        for(int j = 0; j < World.COLS; j++){
-                            System.out.print(test[i][j] + " ");
-                        }
+                        System.out.println("Num of iterations: " + count);
+                    //     if(!explored.contains(nextState)){
+                    //         explored.add(nextState);
+                    //         break;
+                    //     // }
                     }
-                    System.out.print("\n");
-                    System.out.println("Num of iterations: " + count);
-                //     if(!explored.contains(nextState)){
-                //         explored.add(nextState);
-                //         break;
-                //     // }
                 }
             }
         }
@@ -153,7 +146,25 @@ public class Solver {
                     if(clonedArray2D[nextBoxRow][nextBoxColumn].equals(World.ENDPOINT)){
                         clonedArray2D[nextBoxRow][nextBoxColumn] = World.BOX_IN_STORAGE;
                     }
-                    else clonedArray2D[nextBoxRow][nextBoxColumn] = World.BOX;
+                    else{
+                        clonedArray2D[nextBoxRow][nextBoxColumn] = World.BOX;
+                        // top left
+                        if(clonedArray2D[nextBoxRow-1][nextBoxColumn].equals(World.WALL) && clonedArray2D[nextBoxRow][nextBoxColumn-1].equals(World.WALL)){
+                            return null;
+                        }
+                        // top right
+                        else if(clonedArray2D[nextBoxRow-1][nextBoxColumn].equals(World.WALL) && clonedArray2D[nextBoxRow][nextBoxColumn+1].equals(World.WALL)){
+                            return null;
+                        }
+                        // bottom left
+                        else if(clonedArray2D[nextBoxRow+1][nextBoxColumn].equals(World.WALL) && clonedArray2D[nextBoxRow][nextBoxColumn-1].equals(World.WALL)){
+                            return null;
+                        }
+                        // bottom right
+                        else if(clonedArray2D[nextBoxRow+1][nextBoxColumn].equals(World.WALL) && clonedArray2D[nextBoxRow][nextBoxColumn+1].equals(World.WALL)){
+                            return null;
+                        }
+                    }
                     // Update the previous position of the boxes
                     if(clonedArray2D[currentBoxRow][currentBoxColumn].equals(World.BOX_IN_STORAGE)){
                         clonedArray2D[currentBoxRow][currentBoxColumn] = World.ENDPOINT;

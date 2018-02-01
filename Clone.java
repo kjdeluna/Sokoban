@@ -1,13 +1,21 @@
 import java.util.LinkedList;
 
-public class Clone{
-    public static Player clonePlayer(Player p){
-        Texture tex = p.getTexture();
-        int currRow = p.getCurrRow();
-        int currCol = p.getCurrCol();
-        String prevPosition = p.getPreviousPosition();
-        Player a = new Player(currRow, currCol, tex, prevPosition);
-        return a;
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ *  This class will be used to clone the value of a certain class 
+ *      - is used to preserve the original values of the parent state
+ *
+ *  Method name format: clone<class/object>
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+public final class Clone{
+
+    public static Player clonePlayer(Player src){
+        Texture tex = src.getTexture();
+        int currRow = src.getCurrRow();
+        int currCol = src.getCurrCol();
+        String prevPosition = src.getPreviousPosition();
+        Player dest = new Player(currRow, currCol, tex, prevPosition);
+        return dest;
     }
 
     public static String[][] cloneArray2D(String[][] src){
@@ -19,8 +27,8 @@ public class Clone{
         return target;
     }
 
-    public static LinkedList<Directions> clonePath(LinkedList<Directions> directions){
-        LinkedList<Directions> path = new LinkedList<Directions>(directions);
-        return path;
+    public static LinkedList<Directions> clonePath(LinkedList<Directions> src){
+        LinkedList<Directions> dest = new LinkedList<Directions>(src);
+        return dest;
     }
 }
