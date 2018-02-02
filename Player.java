@@ -77,8 +77,8 @@ public class Player extends Sprite{
     public void setInitialCoordinates(int xPos, int yPos){
         this.currRow = xPos;
         this.currCol = yPos;
-        this.xPos = xPos * World.TILE_SIZE;
-        this.yPos = yPos * World.TILE_SIZE;
+        this.yPos = xPos * World.TILE_SIZE;
+        this.xPos = yPos * World.TILE_SIZE;
     }
 }
 
