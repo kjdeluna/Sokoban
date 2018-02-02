@@ -13,16 +13,9 @@ public class Solver {
         //                  of the game.
         this.parentState = initialState;
         this.frontier = new ArrayDeque<State>();
-        long startTime = System.currentTimeMillis();
-        State hold = this.breadthFirstSearch();
-        long endTime = System.currentTimeMillis();
-
-        System.out.println("That took " + (endTime - startTime) + " milliseconds");
-        hold.printPaths();
-        SolutionWindow sw = new SolutionWindow();
     }
 
-    private State breadthFirstSearch(){
+    public State breadthFirstSearch(){
         State currentState;
         State nextState;
         int count = 0;

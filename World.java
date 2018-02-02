@@ -329,6 +329,7 @@ public class World extends JPanel implements KeyListener{
 	}
 
     public void readFile(String filename){
+        this.win = false;
         int initialEndPointCounter = 0;
         try{
             int i = 0;
@@ -424,5 +425,41 @@ public class World extends JPanel implements KeyListener{
 
     public int getInitialEndPointCount(){
         return this.initialEndPointCount;
+    }
+
+    public void passDirectionToWorld(Directions dir){
+        if(!this.win){
+            switch(dir){
+                case UP:
+                    this.player.setTexture(
+                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveup.png")
+                    );
+                    movementDetected(Directions.UP);
+                    break;
+                case DOWN:
+                    this.player.setTexture(
+                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_movedown.png")
+                    );
+                    movementDetected(Directions.DOWN);
+                    break;
+                case LEFT:
+                    this.player.setTexture(
+                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveleft.png")
+                    );
+                    movementDetected(Directions.LEFT);
+                    break;
+                case RIGHT:
+                    this.player.setTexture(
+                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveright.png")
+                    );
+                    movementDetected(Directions.RIGHT);
+                    break;
+            }
+            this.repaint();
+            if(checkWin()){
+                JOptionPane.showMessageDialog(null, "You win");
+                this.win = true;
+            }
+        } 
     }
 }

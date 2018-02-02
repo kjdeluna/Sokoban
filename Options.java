@@ -59,6 +59,13 @@ public class Options extends JPanel{
                 
                 // Pass initialState to the Solver
                 Solver bfsSolver = new Solver(initialState);
+
+                long startTime = System.currentTimeMillis();
+                State hold = bfsSolver.breadthFirstSearch();
+                long endTime = System.currentTimeMillis();
+                System.out.println("That took " + (endTime - startTime) + " milliseconds");
+                // hold.printPaths();
+                SolutionWindow sw = new SolutionWindow(world, hold.getPath());
             }
         });
 
