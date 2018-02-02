@@ -36,19 +36,19 @@ public class Solver {
                                 hash += nextState.getWorldArray()[i][j];
                             }
                         }
-                        System.out.println(direction);
+                        // System.out.println(direction);
                         if(!explored.contains(hash)){
                             this.frontier.offer(nextState);
                             explored.add(hash);
                         }
-                        String[][] test = currentState.getWorldArray();
-                        for(int i = 0; i < World.ROWS; i++){
-                            System.out.print("\n");
-                            for(int j = 0; j < World.COLS; j++){
-                                System.out.print(test[i][j] + " ");
-                            }
-                        }
-                        System.out.print("\n");
+                        // String[][] test = currentState.getWorldArray();
+                        // for(int i = 0; i < World.ROWS; i++){
+                        //     System.out.print("\n");
+                        //     for(int j = 0; j < World.COLS; j++){
+                        //         System.out.print(test[i][j] + " ");
+                        //     }
+                        // }
+                        // System.out.print("\n");
                         System.out.println("Num of iterations: " + count);
                     }
                 }
@@ -182,13 +182,6 @@ public class Solver {
                     }
                 }
             }
-            // for(int i = 0; i < World.ROWS; i++){
-            //     System.out.print("\n");
-            //     for(int j = 0; j < World.COLS; j++){
-            //         System.out.print(clonedArray2D[i][j] + " ");
-            //     }
-            // }
-            // System.out.print("\n");
         }
 
 
@@ -241,7 +234,6 @@ public class Solver {
                 }    
             }
         }
-        System.out.println("Seal: "+sealCounter);
         if(sealCounter == currentState.getInitEndPointCount()) return true;
         else return false;
     }
@@ -296,7 +288,6 @@ public class Solver {
                 }
             }
         }
-System.out.println("ey");
         // Inspect left
         outOfBounds = currentCol - 1 >= 0 ? false : true;
         if(!outOfBounds){

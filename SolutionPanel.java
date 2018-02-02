@@ -11,6 +11,8 @@ import java.util.LinkedList;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyAdapter;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 public class SolutionPanel extends JPanel implements KeyListener{
     private JButton upArrowButton;
     private JButton downArrowButton;
@@ -61,70 +63,174 @@ public class SolutionPanel extends JPanel implements KeyListener{
         this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
-        // this.setNextIcon(this.path.get(currentIndex));
+        prevButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                currentIndex--;
+                if(currentIndex < 0) return;
+                Directions nextDir = path.get(currentIndex);
+
+                ImageIcon img;
+                switch(nextDir){
+                    case UP: 
+                        img = new ImageIcon("resources/icons/up_arrowkey.png");
+                        upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
+                        rightArrowButton.setIcon(img);               
+                        break;
+                    case DOWN:  
+                        img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
+                        upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
+                        rightArrowButton.setIcon(img);
+                        break;
+                    case LEFT:
+                        img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
+                        upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
+                        rightArrowButton.setIcon(img);
+                        break;
+                    case RIGHT:
+                        img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
+                        upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey.png");
+                        rightArrowButton.setIcon(img);
+                        break;
+                    default: System.out.println("Something wrong with dir");
+                         
+                }
+            }
+        });
+
+        nextButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                currentIndex++;
+                if(currentIndex >= path.size()) return;
+                Directions nextDir = path.get(currentIndex);
+
+                ImageIcon img;
+                switch(nextDir){
+                    case UP: 
+                        img = new ImageIcon("resources/icons/up_arrowkey.png");
+                        upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
+                        rightArrowButton.setIcon(img);               
+                        break;
+                    case DOWN:  
+                        img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
+                        upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
+                        rightArrowButton.setIcon(img);
+                        break;
+                    case LEFT:
+                        img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
+                        upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
+                        rightArrowButton.setIcon(img);
+                        break;
+                    case RIGHT:
+                        img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
+                        upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey.png");
+                        rightArrowButton.setIcon(img);
+                        break;
+                    default: System.out.println("Something wrong with dir");
+                         
+                }
+            }
+        });
+
     }
     public void setNextIcon(Directions dir){
-        System.out.println("running" + dir);
         if(this.currentIndex >= this.path.size() - 1){
             this.removeKeyListener(this);
             return;
         }
         else{
-        if(dir.equals(this.path.get(currentIndex))){
-            currentIndex++;
-            Directions nextDir = this.path.get(currentIndex);
+            if(dir.equals(this.path.get(currentIndex))){
+                currentIndex++;
+                Directions nextDir = this.path.get(currentIndex);
 
-            ImageIcon img;
-            switch(nextDir){
-                case UP: 
-                    img = new ImageIcon("resources/icons/up_arrowkey.png");
-                    this.upArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
-                    downArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
-                    leftArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
-                    rightArrowButton.setIcon(img);               
-                    break;
-                case DOWN:  
-                    img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
-                    this.upArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/down_arrowkey.png");
-                    downArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
-                    leftArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
-                    rightArrowButton.setIcon(img);
-                    break;
-                case LEFT:
-                    img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
-                    this.upArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
-                    downArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/left_arrowkey.png");
-                    leftArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
-                    rightArrowButton.setIcon(img);
-                    break;
-                case RIGHT:
-                    img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
-                    this.upArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
-                    downArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
-                    leftArrowButton.setIcon(img);
-                    img = new ImageIcon("resources/icons/right_arrowkey.png");
-                    rightArrowButton.setIcon(img);
-                    break;
-                default: System.out.println("Something wrong with dir");
-                
+                ImageIcon img;
+                switch(nextDir){
+                    case UP: 
+                        img = new ImageIcon("resources/icons/up_arrowkey.png");
+                        this.upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
+                        rightArrowButton.setIcon(img);               
+                        break;
+                    case DOWN:  
+                        img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
+                        this.upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
+                        rightArrowButton.setIcon(img);
+                        break;
+                    case LEFT:
+                        img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
+                        this.upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
+                        rightArrowButton.setIcon(img);
+                        break;
+                    case RIGHT:
+                        img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
+                        this.upArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
+                        downArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
+                        leftArrowButton.setIcon(img);
+                        img = new ImageIcon("resources/icons/right_arrowkey.png");
+                        rightArrowButton.setIcon(img);
+                        break;
+                    default: System.out.println("Something wrong with dir");
+                    
+                }
             }
-        }
-        }
+       }
     }
-    public void keyTyped(KeyEvent e){
-        System.out.println(e.getKeyChar());
-    }
+    public void keyTyped(KeyEvent e){}
     public void keyPressed(KeyEvent e){
         switch(e.getKeyCode()){
             case KeyEvent.VK_UP:
@@ -145,16 +251,11 @@ public class SolutionPanel extends JPanel implements KeyListener{
                 break;
         }
     }
-    public void keyReleased(KeyEvent e){
-        System.out.println(e.getKeyChar());
-    }
+    public void keyReleased(KeyEvent e){}
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        // g2d.setColor(Color.RED);
-        // g2d.fillRect(0,0,600,300);
-        g2d.drawImage(World.textureLoader.getTexture(Texture.DEFAULT_PATH, "background.jpg").getImage(),0,0,null);
-        
+        g2d.drawImage(World.textureLoader.getTexture(Texture.DEFAULT_PATH, "summer.png").getImage(),0,0,null);
     }
     
 }
