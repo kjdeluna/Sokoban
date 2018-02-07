@@ -15,6 +15,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 public class SolutionPanel extends JPanel implements KeyListener{
     private ArrowButton upArrowButton;
     private ArrowButton downArrowButton;
@@ -24,6 +25,7 @@ public class SolutionPanel extends JPanel implements KeyListener{
     private JButton nextButton;
     private LinkedList<Directions> path;
     private World world;
+    private String message;
     private int currentIndex = 0;
     public SolutionPanel(World world, LinkedList<Directions> path){
         this.world = world;
@@ -46,6 +48,8 @@ public class SolutionPanel extends JPanel implements KeyListener{
         this.add(rightArrowButton);
         this.add(nextButton);
 
+        this.message = "Status: Puzzle is still not solved. Follow the highlighted arrowkeys.";
+
         // Locate their locations
         upArrowButton.setBounds(275,75,64,64);
         downArrowButton.setBounds(275,139,64,64);
@@ -66,9 +70,6 @@ public class SolutionPanel extends JPanel implements KeyListener{
             this.rightArrowButton.unsetIcon();
         }
 
-        // this.addKeyListener(this);
-        // this.setFocusable(true);
-        // this.requestFocusInWindow();
 
         upArrowButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -102,155 +103,106 @@ public class SolutionPanel extends JPanel implements KeyListener{
                 }
             }
         });
-        // prevButton.addActionListener(new ActionListener(){
-        //     public void actionPerformed(ActionEvent e){
-        //         currentIndex--;
-        //         if(currentIndex < 0) return;
-        //         Directions nextDir = path.get(currentIndex);
 
-        //         ImageIcon img;
-        //         switch(nextDir){
-        //             case UP: 
-        //                 img = new ImageIcon("resources/icons/up_arrowkey.png");
-        //                 upArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
-        //                 downArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
-        //                 leftArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
-        //                 rightArrowButton.setIcon(img);               
-        //                 break;
-        //             case DOWN:  
-        //                 img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
-        //                 upArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/down_arrowkey.png");
-        //                 downArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
-        //                 leftArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
-        //                 rightArrowButton.setIcon(img);
-        //                 break;
-        //             case LEFT:
-        //                 img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
-        //                 upArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
-        //                 downArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/left_arrowkey.png");
-        //                 leftArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
-        //                 rightArrowButton.setIcon(img);
-        //                 break;
-        //             case RIGHT:
-        //                 img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
-        //                 upArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
-        //                 downArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
-        //                 leftArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/right_arrowkey.png");
-        //                 rightArrowButton.setIcon(img);
-        //                 break;
-        //             default: System.out.println("Something wrong with dir");
+        this.addKeyListener(this);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        prevButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                if(currentIndex <= 0) return;
+                updateIcons(path.get(currentIndex));
+                currentIndex--;
+                Directions nextDir = path.get(currentIndex);
+                System.out.println(nextDir);
+                System.out.println(currentIndex);
+                switch(nextDir){
+                    case UP: 
+                        world.passDirectionToWorld(inverseDirection(Directions.UP));
+                        break;
+                    case DOWN:  
+                        world.passDirectionToWorld(inverseDirection(Directions.DOWN));
+                        break;
+                    case LEFT:
+                        world.passDirectionToWorld(inverseDirection(Directions.LEFT));
+                        break;
+                    case RIGHT:
+                        world.passDirectionToWorld(inverseDirection(Directions.RIGHT));
+                        break;
+                    default: System.out.println("Something wrong with dir");
                          
-        //         }
-        //     }
-        // });
+                }
+                updateIcons(nextDir);
+            }
+        });
 
-        // nextButton.addActionListener(new ActionListener(){
-        //     public void actionPerformed(ActionEvent e){
-        //         currentIndex++;
-        //         if(currentIndex >= path.size()) return;
-        //         Directions nextDir = path.get(currentIndex);
-
-        //         ImageIcon img;
-        //         switch(nextDir){
-        //             case UP: 
-        //                 img = new ImageIcon("resources/icons/up_arrowkey.png");
-        //                 upArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
-        //                 downArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
-        //                 leftArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
-        //                 rightArrowButton.setIcon(img);               
-        //                 break;
-        //             case DOWN:  
-        //                 img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
-        //                 upArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/down_arrowkey.png");
-        //                 downArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
-        //                 leftArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
-        //                 rightArrowButton.setIcon(img);
-        //                 break;
-        //             case LEFT:
-        //                 img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
-        //                 upArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
-        //                 downArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/left_arrowkey.png");
-        //                 leftArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/right_arrowkey_blur.png");
-        //                 rightArrowButton.setIcon(img);
-        //                 break;
-        //             case RIGHT:
-        //                 img = new ImageIcon("resources/icons/up_arrowkey_blur.png");
-        //                 upArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/down_arrowkey_blur.png");
-        //                 downArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/left_arrowkey_blur.png");
-        //                 leftArrowButton.setIcon(img);
-        //                 img = new ImageIcon("resources/icons/right_arrowkey.png");
-        //                 rightArrowButton.setIcon(img);
-        //                 break;
-        //             default: System.out.println("Something wrong with dir");
+        nextButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                if(currentIndex >= path.size()) return;                    
+                    Directions currDir = path.get(currentIndex);
+                    setNextIcon(currDir);
+                    world.passDirectionToWorld(currDir);
+                // switch(nextDir){
+                //     case UP: 
+                //         setNextIcon(currDir);
+                //         break;
+                //     case DOWN:  
+                //         break;
+                //     case LEFT:
+                //         break;
+                //     case RIGHT:
+                //         break;
+                //     default: System.out.println("Something wrong with dir");
                          
-        //         }
-        //     }
-        // });
+                // }
+            }
+        });
 
     }
-    public void setNextIcon(Directions dir){
+    private Directions inverseDirection(Directions dir){
+        switch(dir){
+            case LEFT: 
+                return Directions.RIGHT;
+            case RIGHT:
+                return Directions.LEFT;
+            case UP:
+                return Directions.DOWN;
+            case DOWN:
+                return Directions.UP;
+        }
+        return null;
+    }
+
+    private void updateIcons(Directions dir){
+        switch(dir){
+            case UP:
+                this.upArrowButton.unsetIcon();
+                break;
+            case DOWN:
+                this.downArrowButton.unsetIcon();
+                break;
+            case LEFT:  
+                this.leftArrowButton.unsetIcon();
+                break;
+            case RIGHT:
+                this.rightArrowButton.unsetIcon();
+                break;
+        }
+    }
+
+    private void setNextIcon(Directions dir){
         if(this.currentIndex >= this.path.size() - 1){
+            updateIcons(dir);
             this.removeKeyListener(this);
+            this.message = "Status: Puzzle solved. You may exit this window now.";
+            this.repaint();
             return;
         }
         else{
             if(dir.equals(this.path.get(currentIndex))){
-                switch(this.path.get(currentIndex)){
-                    case UP:
-                        this.upArrowButton.unsetIcon();
-                        break;
-                    case DOWN:
-                        this.downArrowButton.unsetIcon();
-                        break;
-                    case LEFT:  
-                        this.leftArrowButton.unsetIcon();
-                        break;
-                    case RIGHT:
-                        this.rightArrowButton.unsetIcon();
-                }
-                currentIndex++;
+                updateIcons(dir);
+                currentIndex++; 
                 Directions nextDir = this.path.get(currentIndex);
-
-                ImageIcon img;
-                switch(nextDir){
-                    case UP: 
-                        this.upArrowButton.unsetIcon();           
-                        break;
-                    case DOWN:  
-                        this.downArrowButton.unsetIcon();
-                        break;
-                    case LEFT:
-                        this.leftArrowButton.unsetIcon();
-                        break;
-                    case RIGHT:
-                        this.rightArrowButton.unsetIcon();
-                        break;
-                    default: System.out.println("Something wrong with dir");
-                    
-                }
+                updateIcons(nextDir);
             }
        }
     }
@@ -258,20 +210,28 @@ public class SolutionPanel extends JPanel implements KeyListener{
     public void keyPressed(KeyEvent e){
         switch(e.getKeyCode()){
             case KeyEvent.VK_UP:
-                world.passDirectionToWorld(Directions.UP);
-                this.setNextIcon(Directions.UP);
+                if(this.path.get(currentIndex) == Directions.UP){
+                    world.passDirectionToWorld(Directions.UP);
+                    this.setNextIcon(Directions.UP);
+                }
                 break;
             case KeyEvent.VK_DOWN:
-                world.passDirectionToWorld(Directions.DOWN);
-                this.setNextIcon(Directions.DOWN);
+                if(this.path.get(currentIndex) == Directions.DOWN){
+                    world.passDirectionToWorld(Directions.DOWN);
+                    this.setNextIcon(Directions.DOWN);
+                }
                 break;
             case KeyEvent.VK_LEFT:
-                world.passDirectionToWorld(Directions.LEFT);
-                this.setNextIcon(Directions.LEFT);
+                if(this.path.get(currentIndex) == Directions.LEFT){
+                    world.passDirectionToWorld(Directions.LEFT);
+                    this.setNextIcon(Directions.LEFT);
+                }
                 break;
             case KeyEvent.VK_RIGHT:
-                world.passDirectionToWorld(Directions.RIGHT);
-                this.setNextIcon(Directions.RIGHT);
+                if(this.path.get(currentIndex) == Directions.RIGHT){
+                    world.passDirectionToWorld(Directions.RIGHT);
+                    this.setNextIcon(Directions.RIGHT);
+                }
                 break;
         }
     }
@@ -280,6 +240,10 @@ public class SolutionPanel extends JPanel implements KeyListener{
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(World.textureLoader.getTexture(Texture.DEFAULT_PATH, "summer.png").getImage(),0,0,null);
+        g2d.setColor(new Color(0,0,0,180));
+        g2d.fillRect(0,0,600,25);
+        g2d.setColor(Color.WHITE);
+        g2d.drawString(this.message, 0, 20);
     }
     
 }
