@@ -1,6 +1,6 @@
 # Sokoban
 
-###Program Description:
+### Program Description:
 This program is based on the Japanese transport puzzle, Sokoban. The game features a warehouse keeper that needs to push all the crates
 in their prospective locations. The program is implemented using Java and uses awt and swing components to recreate the Sokoban
 environment.
