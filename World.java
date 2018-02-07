@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 
 public class World extends JPanel implements KeyListener{
     public final static int UNINITIALIZED_INT = -1;
-    public static TextureLoader textureLoader;
 
     // Details of the map
     private final static String INPUT_FILENAME = "puzzle2.in";
@@ -19,7 +18,6 @@ public class World extends JPanel implements KeyListener{
     public final static int COLS = 10;
 
     // Will be used in loading textures
-    private String[] textures;
 
     // Values of the 2D Array
     private String[][] worldArray = new String[ROWS][COLS];
@@ -46,23 +44,8 @@ public class World extends JPanel implements KeyListener{
 
     public World(){
         this.setBackground(Color.BLACK);
-        this.textures = new String[]{ 
-            "box.png",
-            "box_in_storage.png",
-            "empty.png",
-            "endpoint.png",
-            "outside.png",
-            "player_moveup.png",
-            "player_movedown.png",
-            "player_moveleft.png",
-            "player_moveright.png",
-            "selector.png",
-            "wall.png",
-            "background.png"
-        };
-        this.textureLoader = new TextureLoader(Texture.DEFAULT_PATH, this.textures);
         this.readFile();
-        this.player = new Player(this.initialRow, this.initialCol, this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_movedown.png"),
+        this.player = new Player(this.initialRow, this.initialCol, Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_movedown.png"),
             (this.worldArray[this.initialRow][this.initialCol]).equals("K") ? "s" : "e"); // If it is standing in a storage
                                                                                         // previousPosition will be storage
         this.add(player);
@@ -96,25 +79,25 @@ public class World extends JPanel implements KeyListener{
             switch(keyCode){
                 case KeyEvent.VK_UP:
                     this.player.setTexture(
-                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveup.png")
+                        Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveup.png")
                     );
                     movementDetected(Directions.UP);
                     break;
                 case KeyEvent.VK_DOWN:
                     this.player.setTexture(
-                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_movedown.png")
+                        Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_movedown.png")
                     );
                     movementDetected(Directions.DOWN);
                     break;
                 case KeyEvent.VK_LEFT:
                     this.player.setTexture(
-                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveleft.png")
+                        Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveleft.png")
                     );
                     movementDetected(Directions.LEFT);
                     break;
                 case KeyEvent.VK_RIGHT:
                     this.player.setTexture(
-                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveright.png")
+                        Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveright.png")
                     );
                     movementDetected(Directions.RIGHT);
                     break;
@@ -381,33 +364,33 @@ public class World extends JPanel implements KeyListener{
         for(int i = 0; i < ROWS; i++){
             for(int j = 0; j < COLS; j++){
                 if(this.worldArray[i][j].equals(World.BOX)){
-                    this.textureLoader.getTexture(Texture.DEFAULT_PATH, "box.png")
+                    Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "box.png")
                         .render(g2d, j * 64, i * 64);
                 } 
                 else if(this.worldArray[i][j].equals(World.BOX_IN_STORAGE)){
-                    this.textureLoader.getTexture(Texture.DEFAULT_PATH, "box_in_storage.png")
+                    Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "box_in_storage.png")
                         .render(g2d, j * 64, i * 64);
                 }
                 else if(this.worldArray[i][j].equals(World.WALL)){
-                    this.textureLoader.getTexture(Texture.DEFAULT_PATH, "wall.png")
+                    Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "wall.png")
                         .render(g2d, j * 64, i * 64);
                 }
                 else if(this.worldArray[i][j].equals(World.OUTSIDE)){
-                    this.textureLoader.getTexture(Texture.DEFAULT_PATH, "outside.png")
+                    Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "outside.png")
                         .render(g2d, j * 64, i * 64);
                 }
                 else if(this.worldArray[i][j].equals(World.ENDPOINT)){
-                    this.textureLoader.getTexture(Texture.DEFAULT_PATH, "endpoint.png")
+                    Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "endpoint.png")
                         .render(g2d, j * 64, i * 64);
                 }
                 else if(this.worldArray[i][j].equals(World.EMPTY)){
-                    this.textureLoader.getTexture(Texture.DEFAULT_PATH, "empty.png")
+                    Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "empty.png")
                         .render(g2d, j * 64, i * 64);
                 }
                 else{
-                    this.textureLoader.getTexture(Texture.DEFAULT_PATH, "empty.png")
+                    Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "empty.png")
                         .render(g2d, j * 64, i * 64);
-                    this.textureLoader.getTexture(Texture.DEFAULT_PATH, "selector.png")
+                    Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "selector.png")
                         .render(g2d, j * 64, i * 64);
                 }
 
@@ -432,25 +415,25 @@ public class World extends JPanel implements KeyListener{
             switch(dir){
                 case UP:
                     this.player.setTexture(
-                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveup.png")
+                        Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveup.png")
                     );
                     movementDetected(Directions.UP);
                     break;
                 case DOWN:
                     this.player.setTexture(
-                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_movedown.png")
+                        Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_movedown.png")
                     );
                     movementDetected(Directions.DOWN);
                     break;
                 case LEFT:
                     this.player.setTexture(
-                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveleft.png")
+                        Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveleft.png")
                     );
                     movementDetected(Directions.LEFT);
                     break;
                 case RIGHT:
                     this.player.setTexture(
-                        this.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveright.png")
+                        Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_moveright.png")
                     );
                     movementDetected(Directions.RIGHT);
                     break;

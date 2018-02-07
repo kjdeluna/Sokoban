@@ -1,7 +1,6 @@
-import javax.swing.JFrame;
 import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Toolkit;
+import javax.swing.JFrame;
+
 public class Main {
 
     // Frame attributes
@@ -13,10 +12,33 @@ public class Main {
     public enum STATE{
         GAME
     };
+
+    // textureLoader -> contains a hashmap of textures
+    private static String[] textures;
+    public static TextureLoader textureLoader;
+
     // Will hold the STATE attribute
     private static STATE state = STATE.GAME;
 
     public static void main(String[] args){
+        Main.textures = new String[]{ 
+            "box.png",
+            "box_in_storage.png",
+            "empty.png",
+            "endpoint.png",
+            "outside.png",
+            "player_moveup.png",
+            "player_movedown.png",
+            "player_moveleft.png",
+            "player_moveright.png",
+            "selector.png",
+            "wall.png",
+            "background.png",
+            "solutionsBack.jpg"
+        };
+        // Load the textures mentioned
+        Main.textureLoader = new TextureLoader(Texture.DEFAULT_PATH, Main.textures);
+
         // ------- Initialize JFrame ---------
         JFrame gameFrame = new JFrame(Main.TITLE);
         gameFrame.setPreferredSize(new Dimension(Main.FRAME_WIDTH, Main.FRAME_HEIGHT));
@@ -30,7 +52,8 @@ public class Main {
         gameFrame.add(world);
         gameFrame.add(options);
         gameFrame.pack();
-
+        
+        // Center the frame
         gameFrame.setLocationRelativeTo(null); // Center gameFrame to the screen
         
         gameFrame.setVisible(true);

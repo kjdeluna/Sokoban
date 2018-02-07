@@ -3,26 +3,32 @@ import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Deque;
+
 public class Solver {
-    private Queue<State> frontier;
     private State parentState;
     private LinkedList<Directions> path;
     private int nodesGenerated = 0;
     public Solver(State initialState){
-        // Initial state 
         // When solver is instantiated, it gets the initial state -> parentState
         //                  of the game.
         this.parentState = initialState;
-        this.frontier = new ArrayDeque<State>();
     }
 
     public State breadthFirstSearch(){
+        // Same function as breadthFirstSearch
+        //      except that it differs in:
+        //          1. Data Structure
+        //              -> this uses QUEUE
+        //              -> Stack operations in ArrayDeque are:
+        //              -> offer(enqueue) and poll(dequeue)
+        Queue<State> frontier = new ArrayDeque<State>();
         State currentState;
         State nextState;
         Set<String> explored = new HashSet<String>();
-        this.frontier.offer(this.parentState);
-        while(this.frontier.peek() != null){
-            currentState = this.frontier.poll();
+        frontier.offer(this.parentState);
+        while(frontier.peek() != null){
+            currentState = frontier.poll();
             if(GoalTest(currentState)) return currentState;
             else{
                 LinkedList<Directions> actionList = Actions(currentState);
@@ -37,19 +43,48 @@ public class Solver {
                                 hash += nextState.getWorldArray()[i][j];
                             }
                         }
-                        // System.out.println(direction);
                         if(!explored.contains(hash)){
-                            this.frontier.offer(nextState);
+                            frontier.offer(nextState);
                             explored.add(hash);
                         }
-                        // String[][] test = currentState.getWorldArray();
-                        // for(int i = 0; i < World.ROWS; i++){
-                        //     System.out.print("\n");
-                        //     for(int j = 0; j < World.COLS; j++){
-                        //         System.out.print(test[i][j] + " ");
-                        //     }
-                        // }
-                        // System.out.print("\n");
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public State depthFirstSearch(){
+        // Same function as breadthFirstSearch
+        //      except that it differs in:
+        //          1. Data Structure
+        //              -> this uses STACK
+        //              -> Stack operations in ArrayDeque are:
+        //              -> offerLast(push) and pollLast(pop)
+        Deque<State> frontier = new ArrayDeque<State>();
+        State currentState;
+        State nextState;
+        Set<String> explored = new HashSet<String>();
+        frontier.offerLast(this.parentState);
+        while(frontier.peek() != null){
+            currentState = frontier.pollLast();
+            if(GoalTest(currentState)) return currentState;
+            else{
+                LinkedList<Directions> actionList = Actions(currentState);
+                for(Directions direction : actionList){
+                    
+                    this.nodesGenerated++;
+                    nextState = Result(currentState, direction);
+                    if(nextState != null){
+                        String hash = "";
+                        for(int i = 0; i < World.ROWS; i++){
+                            for(int j = 0; j < World.COLS; j++){
+                                hash += nextState.getWorldArray()[i][j];
+                            }
+                        }
+                        if(!explored.contains(hash)){
+                            frontier.offerLast(nextState);
+                            explored.add(hash);
+                        }
                     }
                 }
             }
@@ -60,9 +95,9 @@ public class Solver {
         return this.nodesGenerated;
     }
     private State Result(State currentState, Directions direction){
+        // Almost the same function from World class.
         Player clonedPlayer = Clone.clonePlayer(currentState.getPlayer());
         String[][] clonedArray2D = Clone.cloneArray2D(currentState.getWorldArray());
-        // State nextState = new State(clonedArray2D, clonedPlayer, currentState.getInitEndPointCount());
         int currentRow = clonedPlayer.getCurrRow();
         int currentColumn = clonedPlayer.getCurrCol();
         String object = "x";

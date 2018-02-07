@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -71,7 +70,22 @@ public class Options extends JPanel{
 
         dfsButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                System.out.println(" dfs I'm working");
+                // Instantiate initialPath -> this will contain a linked list of directions taken by player
+                LinkedList<Directions> initialPath = new LinkedList<Directions>();
+
+                // Create initialState based on the current position -> this is where the solver will start
+                State initialState = new State(world.getWorldArray(), world.getPlayer(), world.getInitialEndPointCount(), initialPath);
+                
+                // Pass initialState to the Solver
+                Solver dfsSolver = new Solver(initialState);
+
+                long startTime = System.currentTimeMillis();
+                State hold = dfsSolver.depthFirstSearch();
+                long endTime = System.currentTimeMillis();
+                System.out.println("That took " + (endTime - startTime) + " milliseconds");
+                // hold.printPaths();
+                SolutionWindow sw = new SolutionWindow(world, hold.getPath(), endTime - startTime, dfsSolver.getNodesGenerated());
+
             }
         });
 
@@ -94,6 +108,6 @@ public class Options extends JPanel{
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         super.paintComponent(g);
-        World.textureLoader.getTexture(Texture.DEFAULT_PATH, "background.png").render(g2d, 0, 640);
+        Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "background.png").render(g2d, 0, 640);
     }   
 }
