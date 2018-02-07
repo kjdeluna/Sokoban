@@ -16,6 +16,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
 public class SolutionPanel extends JPanel implements KeyListener{
     private ArrowButton upArrowButton;
     private ArrowButton downArrowButton;
@@ -23,11 +24,13 @@ public class SolutionPanel extends JPanel implements KeyListener{
     private ArrowButton rightArrowButton;
     private JButton prevButton;
     private JButton nextButton;
+    private JButton viewSolutionButton;
     private LinkedList<Directions> path;
     private World world;
     private String message;
+    private StatsPanel statsPanel;
     private int currentIndex = 0;
-    public SolutionPanel(World world, LinkedList<Directions> path){
+    public SolutionPanel(World world, LinkedList<Directions> path, long time, int nodesGenerated){
         this.world = world;
         this.path = path;
         this.setLayout(null);
@@ -36,6 +39,8 @@ public class SolutionPanel extends JPanel implements KeyListener{
 
         this.prevButton = new JButton("<- previous");
         this.nextButton = new JButton("next ->");
+        // this.viewSolutionButton = new JButton("View Solution");
+        this.statsPanel = new StatsPanel(path, time, nodesGenerated);
         // Add to the panel
         this.upArrowButton = new ArrowButton("up_arrowkey.png", "up_arrowkey_blur.png");
         this.downArrowButton = new ArrowButton("down_arrowkey.png", "down_arrowkey_blur.png");
@@ -47,7 +52,8 @@ public class SolutionPanel extends JPanel implements KeyListener{
         this.add(prevButton);
         this.add(rightArrowButton);
         this.add(nextButton);
-
+        // this.add(viewSolutionButton);
+        this.add(statsPanel);
         this.message = "Status: Puzzle is still not solved. Follow the highlighted arrowkeys.";
 
         // Locate their locations
@@ -57,7 +63,9 @@ public class SolutionPanel extends JPanel implements KeyListener{
         rightArrowButton.setBounds(339,139,64,64);
         prevButton.setBounds(100,225,100, 40);
         nextButton.setBounds(428,225,100, 40);
-        
+
+        // --- UPDATE ME
+        // viewSolutionButton.setBounds(500, 200,90, 40);
         // // Which button will appear first
 
         if(this.path.get(currentIndex) == Directions.UP){
@@ -239,7 +247,7 @@ public class SolutionPanel extends JPanel implements KeyListener{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(World.textureLoader.getTexture(Texture.DEFAULT_PATH, "summer.png").getImage(),0,0,null);
+        g2d.drawImage(World.textureLoader.getTexture(Texture.DEFAULT_PATH, "solutionsBack.jpg").getImage(),0,0,null);
         g2d.setColor(new Color(0,0,0,180));
         g2d.fillRect(0,0,600,25);
         g2d.setColor(Color.WHITE);

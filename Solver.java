@@ -7,6 +7,7 @@ public class Solver {
     private Queue<State> frontier;
     private State parentState;
     private LinkedList<Directions> path;
+    private int nodesGenerated = 0;
     public Solver(State initialState){
         // Initial state 
         // When solver is instantiated, it gets the initial state -> parentState
@@ -18,7 +19,6 @@ public class Solver {
     public State breadthFirstSearch(){
         State currentState;
         State nextState;
-        int count = 0;
         Set<String> explored = new HashSet<String>();
         this.frontier.offer(this.parentState);
         while(this.frontier.peek() != null){
@@ -27,7 +27,8 @@ public class Solver {
             else{
                 LinkedList<Directions> actionList = Actions(currentState);
                 for(Directions direction : actionList){
-                    count++;
+                    
+                    this.nodesGenerated++;
                     nextState = Result(currentState, direction);
                     if(nextState != null){
                         String hash = "";
@@ -49,14 +50,15 @@ public class Solver {
                         //     }
                         // }
                         // System.out.print("\n");
-                        System.out.println("Num of iterations: " + count);
                     }
                 }
             }
         }
         return null;
     }
-
+    public int getNodesGenerated(){
+        return this.nodesGenerated;
+    }
     private State Result(State currentState, Directions direction){
         Player clonedPlayer = Clone.clonePlayer(currentState.getPlayer());
         String[][] clonedArray2D = Clone.cloneArray2D(currentState.getWorldArray());

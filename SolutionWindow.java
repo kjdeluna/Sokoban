@@ -6,14 +6,14 @@ import java.util.LinkedList;
 public class SolutionWindow{
     private static final String SOLUTION_TITLE = "Solution";
     public static final int SOLUTION_FRAME_WIDTH = 600;
-    public static final int SOLUTION_FRAME_HEIGHT = 300;
-    public SolutionWindow(World world, LinkedList<Directions> path){
+    public static final int SOLUTION_FRAME_HEIGHT = 560;
+    public SolutionWindow(World world, LinkedList<Directions> path, long time, int nodesGenerated){
         JFrame solutionFrame = new JFrame(SolutionWindow.SOLUTION_TITLE);
         solutionFrame.setPreferredSize(new Dimension(SOLUTION_FRAME_WIDTH, SOLUTION_FRAME_HEIGHT));
         solutionFrame.setResizable(false);
         solutionFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        SolutionPanel sp = new SolutionPanel(world, path);
+        SolutionPanel sp = new SolutionPanel(world, path, time, nodesGenerated);
         solutionFrame.add(sp);
 
         solutionFrame.pack();

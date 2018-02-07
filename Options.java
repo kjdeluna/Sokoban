@@ -65,7 +65,7 @@ public class Options extends JPanel{
                 long endTime = System.currentTimeMillis();
                 System.out.println("That took " + (endTime - startTime) + " milliseconds");
                 // hold.printPaths();
-                SolutionWindow sw = new SolutionWindow(world, hold.getPath());
+                SolutionWindow sw = new SolutionWindow(world, hold.getPath(), endTime - startTime, bfsSolver.getNodesGenerated());
             }
         });
 
