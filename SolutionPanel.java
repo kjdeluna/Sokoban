@@ -147,8 +147,6 @@ public class SolutionPanel extends JPanel implements KeyListener{
                 updateIcons(path.get(currentIndex));
                 currentIndex--;
                 Directions nextDir = path.get(currentIndex);
-                System.out.println(nextDir);
-                System.out.println(currentIndex);
                 switch(nextDir){
                     case UP: 
                         world.passDirectionToWorld(inverseDirection(Directions.UP));

@@ -1,17 +1,17 @@
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Dimension;
-import java.util.LinkedList;
-import java.awt.Color;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JViewport;
-import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JViewport;
+import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.LinkedList;
 
 // Static Component
 public class StatsPanel extends JPanel{

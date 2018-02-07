@@ -15,6 +15,7 @@ Sprites are provided by
 http://kenney.nl/assets/sokoban
 http://www.101computing.net/wp/wp-content/uploads/arrowKeys.png
 https://i.stack.imgur.com/WHu9Z.png
+https://i.imgur.com/1bXkyrY.jpg
 
 How to run:
 javac -d . \*.java

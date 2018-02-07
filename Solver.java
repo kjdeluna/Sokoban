@@ -1,9 +1,9 @@
-import java.util.Queue;
 import java.util.ArrayDeque;
-import java.util.LinkedList;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 public class Solver {
     private State parentState;
@@ -27,7 +27,10 @@ public class Solver {
         State nextState;
         Set<String> explored = new HashSet<String>();
         frontier.offer(this.parentState);
+        int count = 0; // Counter of iterations
         while(frontier.peek() != null){
+            count++;
+            System.out.println("Num of iterations: " + count);
             currentState = frontier.poll();
             if(GoalTest(currentState)) return currentState;
             else{
@@ -65,7 +68,10 @@ public class Solver {
         State nextState;
         Set<String> explored = new HashSet<String>();
         frontier.offerLast(this.parentState);
+        int count = 0;
         while(frontier.peek() != null){
+            count++;
+            System.out.println("Num of iterations: " + count);
             currentState = frontier.pollLast();
             if(GoalTest(currentState)) return currentState;
             else{
