@@ -48,7 +48,6 @@ public class World extends JPanel implements KeyListener{
         this.player = new Player(this.initialRow, this.initialCol, Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "player_movedown.png"),
             (this.worldArray[this.initialRow][this.initialCol]).equals("K") ? "s" : "e"); // If it is standing in a storage
                                                                                         // previousPosition will be storage
-        this.add(player);
         this.setBounds(0,0, Main.FRAME_WIDTH, 640);
         this.win = false;
         this.addKeyListener(this);
@@ -327,7 +326,8 @@ public class World extends JPanel implements KeyListener{
                         this.initialRow = i;
                         this.initialCol = j;
                         this.player.setPreviousPosition((this.worldArray[this.initialRow][this.initialCol]).equals("K") ? "s" : "e");
-                        this.player.setInitialCoordinates(this.initialRow, this.initialCol);
+                        this.player.setInitialRow(this.initialRow);
+                        this.player.setInitialCol(this.initialCol);
                     }
                     this.worldArray[i][j] = lineRead[j];
                     if(lineRead[j].equals(World.ENDPOINT) 
@@ -392,6 +392,7 @@ public class World extends JPanel implements KeyListener{
                         .render(g2d, j * 64, i * 64);
                     Main.textureLoader.getTexture(Texture.DEFAULT_PATH, "selector.png")
                         .render(g2d, j * 64, i * 64);
+                    this.player.getTexture().render(g2d, j*64, i*64);
                 }
 
             }
@@ -400,6 +401,14 @@ public class World extends JPanel implements KeyListener{
 
     public String[][] getWorldArray(){
         return this.worldArray;
+    }
+
+    public void setWorldArray(String[][] arg){
+        this.worldArray = arg;
+    }
+
+    public void setPlayer(Player arg){
+        this.player = arg;
     }
 
     public Player getPlayer(){

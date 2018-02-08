@@ -8,8 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.LinkedList;
-
 
 public class SolutionPanel extends JPanel implements KeyListener{
     private ArrowButton upArrowButton;
@@ -24,12 +25,20 @@ public class SolutionPanel extends JPanel implements KeyListener{
     private String message;
     private StatsPanel statsPanel;
     private int currentIndex;
-
+    private Deque<State> stateStore;
     public SolutionPanel(World world, LinkedList<Directions> path, long time, int nodesGenerated){
         // Actual parameters needed by the solutionPanel
         this.world = world;
         this.path = path;
         this.currentIndex = 0;
+
+        // stateStore
+        Player clonedPlayer = Clone.clonePlayer(world.getPlayer());
+        String[][] clonedArray2D = Clone.cloneArray2D(world.getWorldArray());
+        LinkedList<Directions> empty = new LinkedList<Directions>();
+
+        this.stateStore = new ArrayDeque<State>();
+        this.stateStore.offerLast(new State(clonedArray2D, clonedPlayer, world.getInitialEndPointCount(), empty));
 
         // Default operations
         this.setLayout(null);
@@ -104,6 +113,10 @@ public class SolutionPanel extends JPanel implements KeyListener{
         upArrowButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(!upArrowButton.isDisabled()){
+                    Player clonedPlayer = Clone.clonePlayer(world.getPlayer());
+                    String[][] clonedArray2D = Clone.cloneArray2D(world.getWorldArray());
+                    LinkedList<Directions> empty = new LinkedList<Directions>();
+                    stateStore.offerLast(new State(clonedArray2D, clonedPlayer, world.getInitialEndPointCount(), empty));
                     world.passDirectionToWorld(Directions.UP);
                     setNextIcon(Directions.UP); 
                 } 
@@ -112,6 +125,10 @@ public class SolutionPanel extends JPanel implements KeyListener{
         downArrowButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(!downArrowButton.isDisabled()){
+                    Player clonedPlayer = Clone.clonePlayer(world.getPlayer());
+                    String[][] clonedArray2D = Clone.cloneArray2D(world.getWorldArray());
+                    LinkedList<Directions> empty = new LinkedList<Directions>();
+                    stateStore.offerLast(new State(clonedArray2D, clonedPlayer, world.getInitialEndPointCount(), empty));
                     world.passDirectionToWorld(Directions.DOWN);
                     setNextIcon(Directions.DOWN);  
                 }
@@ -120,6 +137,10 @@ public class SolutionPanel extends JPanel implements KeyListener{
         leftArrowButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(!leftArrowButton.isDisabled()){
+                    Player clonedPlayer = Clone.clonePlayer(world.getPlayer());
+                    String[][] clonedArray2D = Clone.cloneArray2D(world.getWorldArray());
+                    LinkedList<Directions> empty = new LinkedList<Directions>();
+                    stateStore.offerLast(new State(clonedArray2D, clonedPlayer, world.getInitialEndPointCount(), empty));
                     world.passDirectionToWorld(Directions.LEFT);
                     setNextIcon(Directions.LEFT); 
                 } 
@@ -128,8 +149,12 @@ public class SolutionPanel extends JPanel implements KeyListener{
         rightArrowButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(!rightArrowButton.isDisabled()){
+                    Player clonedPlayer = Clone.clonePlayer(world.getPlayer());
+                    String[][] clonedArray2D = Clone.cloneArray2D(world.getWorldArray());
+                    LinkedList<Directions> empty = new LinkedList<Directions>();
+                    stateStore.offerLast(new State(clonedArray2D, clonedPlayer, world.getInitialEndPointCount(), empty)); 
                     world.passDirectionToWorld(Directions.RIGHT);
-                    setNextIcon(Directions.RIGHT);  
+                    setNextIcon(Directions.RIGHT); 
                 }
             }
         });
@@ -147,51 +172,33 @@ public class SolutionPanel extends JPanel implements KeyListener{
                 updateIcons(path.get(currentIndex));
                 currentIndex--;
                 Directions nextDir = path.get(currentIndex);
-                switch(nextDir){
-                    case UP: 
-                        world.passDirectionToWorld(inverseDirection(Directions.UP));
-                        break;
-                    case DOWN:  
-                        world.passDirectionToWorld(inverseDirection(Directions.DOWN));
-                        break;
-                    case LEFT:
-                        world.passDirectionToWorld(inverseDirection(Directions.LEFT));
-                        break;
-                    case RIGHT:
-                        world.passDirectionToWorld(inverseDirection(Directions.RIGHT));
-                        break;
-                    default: System.out.println("Something wrong with dir");
-                         
-                }
                 updateIcons(nextDir);
+                State prevState = stateStore.pollLast();
+                world.setWorldArray(prevState.getWorldArray());
+                world.setPlayer(prevState.getPlayer());
+                System.out.println(world.getPlayer().getCurrRow());
+                System.out.println(world.getPlayer().getCurrCol());                                                                                                                                                                                                                                                                                                                                                                                                   
+                
+                world.repaint();
+                
+                prevState.printArray();
             }
         });
 
         nextButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(currentIndex >= path.size()) return;                    
-                    Directions currDir = path.get(currentIndex);
-                    setNextIcon(currDir);
-                    world.passDirectionToWorld(currDir);
+                Directions currDir = path.get(currentIndex);
+                setNextIcon(currDir);
+                Player clonedPlayer = Clone.clonePlayer(world.getPlayer());
+                String[][] clonedArray2D = Clone.cloneArray2D(world.getWorldArray());
+                LinkedList<Directions> empty = new LinkedList<Directions>();
+                stateStore.offerLast(new State(clonedArray2D, clonedPlayer, world.getInitialEndPointCount(), empty));
+                world.passDirectionToWorld(currDir);
+
             }
         });
 
-    }
-    private Directions inverseDirection(Directions dir){
-        // inverseDirection will be used for prevButton
-        //      so that the player can go back to its previous
-        //      state / position
-        switch(dir){
-            case LEFT: 
-                return Directions.RIGHT;
-            case RIGHT:
-                return Directions.LEFT;
-            case UP:
-                return Directions.DOWN;
-            case DOWN:
-                return Directions.UP;
-        }
-        return null;
     }
 
     private void updateIcons(Directions dir){

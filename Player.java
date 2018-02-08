@@ -20,38 +20,31 @@ import java.awt.image.BufferedImage;
  *
  * -------------------------------------------------------------------------------------------*/
 
-public class Player extends Sprite{
+public class Player{
     private Texture texture;
     private int currRow;
     private int currCol;
     private String previousPosition;
     public Player(int currRow, int currCol, Texture texture, String previousPosition){
-        super(currCol * World.TILE_SIZE, currRow * World.TILE_SIZE, texture);
         this.currRow = currRow;
         this.currCol = currCol;
         this.texture = texture;
         this.previousPosition = previousPosition;
-        this.setOpaque(false);
-        this.setSize(640, 640);
     }
 
     public void moveLeft(){
-        this.xPos -= World.TILE_SIZE;
         this.currCol -= 1;
     }
 
     public void moveRight(){
-        this.xPos += World.TILE_SIZE;
         this.currCol += 1;
     }
 
     public void moveUp(){
-        this.yPos -= World.TILE_SIZE;
         this.currRow -= 1;
     }
 
     public void moveDown(){
-        this.yPos += World.TILE_SIZE;
         this.currRow += 1;
     }
     public int getCurrRow(){
@@ -68,17 +61,15 @@ public class Player extends Sprite{
     }
     public void setTexture(Texture texture){
         this.texture = texture;
-        this.setImage(this.texture.getImage());
     }
     public Texture getTexture(){
         return this.texture;
     }
-
-    public void setInitialCoordinates(int xPos, int yPos){
-        this.currRow = xPos;
-        this.currCol = yPos;
-        this.yPos = xPos * World.TILE_SIZE;
-        this.xPos = yPos * World.TILE_SIZE;
+    public void setInitialRow(int arg){
+        this.currRow = arg;
+    }
+    public void setInitialCol(int arg){
+        this.currCol = arg;
     }
 }
 

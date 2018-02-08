@@ -1,16 +1,19 @@
 # Sokoban
 
 ### Program Description:
+
 This program is based on the Japanese transport puzzle, Sokoban. The game features a warehouse keeper that needs to push all the crates
 in their prospective locations. The program is implemented using Java and uses awt and swing components to recreate the Sokoban
-environment.
+environment. The program also features a game solver, using BFS and DFS algorithms.
 
 ### Author:
+
 Kobe Jee B. De Luna
 CMSC 170 U-9L
 
 ### Credits:
-Sprites are provided by -http://kenney.nl/assets/sokoban -http://www.101computing.net/wp/wp-content/uploads/arrowKeys.png -https://i.stack.imgur.com/WHu9Z.png -https://i.imgur.com/1bXkyrY.jpg
+
+Sprites are provided by - http://kenney.nl/assets/sokoban - http://www.101computing.net/wp/wp-content/uploads/arrowKeys.png - https://i.stack.imgur.com/WHu9Z.png -https://i.imgur.com/1bXkyrY.jpg
 
 ### Installation
 
