@@ -175,13 +175,8 @@ public class SolutionPanel extends JPanel implements KeyListener{
                 updateIcons(nextDir);
                 State prevState = stateStore.pollLast();
                 world.setWorldArray(prevState.getWorldArray());
-                world.setPlayer(prevState.getPlayer());
-                System.out.println(world.getPlayer().getCurrRow());
-                System.out.println(world.getPlayer().getCurrCol());                                                                                                                                                                                                                                                                                                                                                                                                   
-                
-                world.repaint();
-                
-                prevState.printArray();
+                world.setPlayer(prevState.getPlayer());                
+                world.repaint();                
             }
         });
 
