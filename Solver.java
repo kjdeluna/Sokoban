@@ -1,10 +1,10 @@
+import java.util.Arrays;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
-
 public class Solver {
     private State parentState;
     private LinkedList<Directions> path;
@@ -36,16 +36,10 @@ public class Solver {
             else{
                 LinkedList<Directions> actionList = Actions(currentState);
                 for(Directions direction : actionList){
-                    
                     this.nodesGenerated++;
                     nextState = Result(currentState, direction);
                     if(nextState != null){
-                        String hash = "";
-                        for(int i = 0; i < World.ROWS; i++){
-                            for(int j = 0; j < World.COLS; j++){
-                                hash += nextState.getWorldArray()[i][j];
-                            }
-                        }
+                        String hash = Arrays.deepToString(nextState.getWorldArray());
                         if(!explored.contains(hash)){
                             frontier.offer(nextState);
                             explored.add(hash);
@@ -81,12 +75,7 @@ public class Solver {
                     this.nodesGenerated++;
                     nextState = Result(currentState, direction);
                     if(nextState != null){
-                        String hash = "";
-                        for(int i = 0; i < World.ROWS; i++){
-                            for(int j = 0; j < World.COLS; j++){
-                                hash += nextState.getWorldArray()[i][j];
-                            }
-                        }
+                        String hash = Arrays.deepToString(nextState.getWorldArray());
                         if(!explored.contains(hash)){
                             frontier.offerLast(nextState);
                             explored.add(hash);
